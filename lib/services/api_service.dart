@@ -306,7 +306,8 @@ class ApiService {
 
       return response.data!.items!.toList();
     } catch (e) {
-      return [];
+      print('Error in getFilterItems: $e');
+      rethrow;
     }
   }
 
@@ -683,6 +684,46 @@ class ApiService {
     return response.data!.items!.toList();
   }
 
+  Future<List<BaseItemDto>> getAllPlaylists() async {
+    var playlists = await getFilterItems(
+      includeItemTypes: [BaseItemKind.playlist],
+      sortBy: [ItemSortBy.sortName],
+    );
+    return playlists;
+  }
+
+  Future<List<BaseItemDto>> getRandomPlaylistItems({String? playlistName}) async {
+    // Get all playlists
+    var playlists = await getFilterItems(
+      includeItemTypes: [BaseItemKind.playlist],
+      sortBy: [ItemSortBy.random],
+      limit: playlistName != null ? 100 : 1,
+    );
+
+    if (playlists.isEmpty) {
+      return [];
+    }
+
+    // Filter by name if provided
+    BaseItemDto? targetPlaylist;
+    if (playlistName != null) {
+      try {
+        targetPlaylist = playlists.firstWhere(
+          (p) => p.name == playlistName,
+        );
+      } catch (e) {
+        return [];
+      }
+    } else {
+      targetPlaylist = playlists.first;
+    }
+
+    // Get items from the playlist
+    var items = await getPlaylistItems(targetPlaylist.id!);
+    items.shuffle();
+    return items;
+  }
+
   Future<String> getWatchlistId() async {
     var views = await _jellyfinApi!
         .getUserViewsApi()
@@ -795,15 +836,9 @@ class ApiService {
 
   Future<List<BaseItemDto>> getHeaderRecommendation() async {
     return await getFilterItems(
-            sortBy: [ItemSortBy.dateCreated],
-            sortOrder: [SortOrder.descending],
-            includeItemTypes: [BaseItemKind.movie],
-            limit: 3) +
-        await getFilterItems(
-            sortBy: [ItemSortBy.dateLastContentAdded],
-            sortOrder: [SortOrder.descending],
-            includeItemTypes: [BaseItemKind.series],
-            limit: 4);
+            sortBy: [ItemSortBy.random],
+            includeItemTypes: [BaseItemKind.movie, BaseItemKind.series],
+            limit: 7);
   }
 
   Future<void> markAsPlayed(

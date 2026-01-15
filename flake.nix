@@ -6,11 +6,8 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }: {
-    # NixOS module for server deployment
-    nixosModules.default = import ./nixos/module.nix;
-    nixosModules.jellyflix = import ./nixos/module.nix;
-  } // flake-utils.lib.eachDefaultSystem (system:
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
           inherit system;
@@ -168,6 +165,34 @@
 
       in
       {
+        # Package the Flutter web application
+        packages.default = pkgs.stdenv.mkDerivation {
+          pname = "jellyflix-web";
+          version = "0.1.0";
+
+          src = ./.;
+
+          nativeBuildInputs = with pkgs; [
+            flutter
+            jq
+          ];
+
+          buildPhase = ''
+            export HOME=$TMPDIR
+            flutter config --no-analytics
+            flutter config --enable-web
+            flutter pub get
+            flutter build web --release
+          '';
+
+          installPhase = ''
+            mkdir -p $out/share/jellyflix
+            cp -r build/web/* $out/share/jellyflix/
+          '';
+        };
+
+        packages.jellyflix-web = self.packages.${system}.default;
+
         # Default: Minimal environment for Linux and Web development
         devShells.default = pkgs.mkShell {
           buildInputs = commonBuildInputs;
@@ -231,5 +256,9 @@
         # Optional: Add a formatter
         formatter = pkgs.nixpkgs-fmt;
       }
-    );
+    ) // {
+      # NixOS module for server deployment
+      nixosModules.default = import ./nixos/module.nix;
+      nixosModules.jellyflix = import ./nixos/module.nix;
+    };
 }

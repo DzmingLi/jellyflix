@@ -101,9 +101,6 @@ class LoginScreen extends HookConsumerWidget {
                             ),
                           ]),
                         ),
-                        kIsWeb
-                            ? Text(AppLocalizations.of(context)!.webDemoNote)
-                            : const SizedBox(),
                       ],
                     ),
                   ),

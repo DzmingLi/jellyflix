@@ -110,9 +110,6 @@ class LoginQuickConnectScreen extends HookConsumerWidget {
                                   ),
                                 ],
                               ),
-                        kIsWeb
-                            ? Text(AppLocalizations.of(context)!.webDemoNote)
-                            : const SizedBox(),
                       ],
                     ),
                   ),

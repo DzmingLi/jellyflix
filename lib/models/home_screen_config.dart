@@ -127,7 +127,6 @@ class HomeScreenConfig {
           config: {
             'dataSource': 'getTopTenPopular',
             'posterType': 'horizontal',
-            'overlay': 'ranking'
           },
         ),
         SectionConfig(

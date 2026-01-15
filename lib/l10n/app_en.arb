@@ -4,7 +4,7 @@
     "recentlyAddedMovies": "Recently Added Movies",
     "recentlyAddedShows": "Recently Added Shows",
     "yourWatchlist": "Your Watchlist",
-    "top10inYourLibrary": "Top 10 in your Library",
+    "top10inYourLibrary": "TMDB Top Picks",
     "similarToWatchHistory": "Similar to your Watch History",
     "becauseYouWatched": "Because you watched {title}",
     "@becausYouWatched": {

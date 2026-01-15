@@ -165,29 +165,28 @@
 
       in
       {
-        # Package the Flutter web application
+        # Package pre-built web application
+        # Build locally with: flutter build web --release
+        # Then the build/web directory will be packaged
         packages.default = pkgs.stdenv.mkDerivation {
           pname = "jellyflix-web";
           version = "0.1.0";
 
-          src = ./.;
+          # Use the pre-built web directory if it exists, otherwise error
+          src = if builtins.pathExists ./build/web
+                then ./build/web
+                else throw ''
+                  build/web directory not found!
+                  Please build the web version first with:
+                    nix develop
+                    flutter build web --release
+                '';
 
-          nativeBuildInputs = with pkgs; [
-            flutter
-            jq
-          ];
-
-          buildPhase = ''
-            export HOME=$TMPDIR
-            flutter config --no-analytics
-            flutter config --enable-web
-            flutter pub get
-            flutter build web --release
-          '';
+          dontBuild = true;
 
           installPhase = ''
             mkdir -p $out/share/jellyflix
-            cp -r build/web/* $out/share/jellyflix/
+            cp -r ./* $out/share/jellyflix/
           '';
         };
 

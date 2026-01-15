@@ -200,7 +200,7 @@
     "apply": "Apply",
     "enableLogging": "Enable Logging",
     "logExported": "Log exported to downloads",
-    "appName": "Dzming's Movie Collection",
+    "appName": "Dzming's Collection",
     "customMpvConfig": "Custom MPV Config",
     "customMpvConfigDescription": "Configure custom MPV player options. One option per line in the format: option=value",
     "resetToDefault": "Reset to Default",

@@ -50,18 +50,11 @@ class LoginPasswordScreen extends HookConsumerWidget {
                     child: Column(
                       children: [
                         Text(AppLocalizations.of(context)!.appName,
-                            style: Theme.of(context).textTheme.displaySmall),
+                            style: Theme.of(context).textTheme.headlineMedium),
                         Text(
                           AppLocalizations.of(context)!.appSubtitle,
                         ),
                         const SizedBox(height: 20),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: Text(
-                            serverAddress,
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: TextField(

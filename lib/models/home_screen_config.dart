@@ -57,22 +57,6 @@ class HomeScreenConfig {
           },
         ),
         SectionConfig(
-          id: 'recent_movies',
-          type: SectionType.paginatedCarousel,
-          enabled: true,
-          title: 'recentlyAddedMovies',
-          config: {
-            'dataSource': 'getFilterItems',
-            'pageSize': 20,
-            'posterType': 'vertical',
-            'parameters': {
-              'sortBy': ['dateCreated'],
-              'sortOrder': ['descending'],
-              'includeItemTypes': ['movie']
-            }
-          },
-        ),
-        SectionConfig(
           id: 'recent_shows',
           type: SectionType.paginatedCarousel,
           enabled: true,
@@ -130,22 +114,6 @@ class HomeScreenConfig {
           },
         ),
         SectionConfig(
-          id: 'highest_rated_movies',
-          type: SectionType.paginatedCarousel,
-          enabled: true,
-          title: 'highesRatedMovies',
-          config: {
-            'dataSource': 'getFilterItems',
-            'pageSize': 20,
-            'posterType': 'vertical',
-            'parameters': {
-              'sortBy': ['random'],
-              'minCommunityRating': 7.5,
-              'includeItemTypes': ['movie']
-            }
-          },
-        ),
-        SectionConfig(
           id: 'highest_rated_shows',
           type: SectionType.paginatedCarousel,
           enabled: true,
@@ -200,6 +168,22 @@ class HomeScreenConfig {
           type: SectionType.recommendations,
           enabled: true,
           config: {},
+        ),
+        SectionConfig(
+          id: 'recent_movies',
+          type: SectionType.paginatedCarousel,
+          enabled: true,
+          title: 'recentlyAddedMovies',
+          config: {
+            'dataSource': 'getFilterItems',
+            'pageSize': 20,
+            'posterType': 'vertical',
+            'parameters': {
+              'sortBy': ['dateCreated'],
+              'sortOrder': ['descending'],
+              'includeItemTypes': ['movie']
+            }
+          },
         ),
       ],
     );

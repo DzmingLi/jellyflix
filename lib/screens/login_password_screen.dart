@@ -113,6 +113,38 @@ class LoginPasswordScreen extends HookConsumerWidget {
                                           );
                                   }),
                             )),
+                        const SizedBox(height: 20),
+                        Container(
+                          padding: const EdgeInsets.all(16.0),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '📧 ${Localizations.localeOf(context).languageCode == 'zh' ? '联系方式' : 'Contact'}: i@dzming.li',
+                                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                Localizations.localeOf(context).languageCode == 'zh'
+                                    ? '• 求片/字幕请发送至此邮箱\n'
+                                      '• 忘记账号密码请发送至此邮箱\n'
+                                      '• 注册新账号请发送你想要的用户名密码至此邮箱\n'
+                                      '• 我会很快回应'
+                                    : '• Request movies/subtitles\n'
+                                      '• Forgot password\n'
+                                      '• Register: Send your desired username and password\n'
+                                      '• I will respond quickly',
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),

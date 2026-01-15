@@ -12,9 +12,20 @@ class LoginScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final serverAddress = useTextEditingController();
+    final serverAddress = useTextEditingController(text: 'https://media.dzming.li');
 
     final loadingListenable = useValueNotifier<bool>(false);
+
+    // Automatically redirect to password login with default server
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.pushNamed(
+          LoginRouteNames.password,
+          pathParameters: {'server': 'https://media.dzming.li'},
+        );
+      });
+      return null;
+    }, []);
 
     return Scaffold(
       appBar: AppBar(),
